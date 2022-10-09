@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "\nConfiguring AIDE\n"
+echo "Configuring AIDE"
 if grep -i '^.*/usr/sbin/auditctl.*$' /etc/aide/aide.conf; then
 sed -i "s#.*/usr/sbin/auditctl.*#/usr/sbin/auditctl p+i+n+u+g+s+b+acl+xattrs+sha512#" /etc/aide/aide.conf
 else

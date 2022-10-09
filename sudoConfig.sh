@@ -1,5 +1,6 @@
 #!/bin/bash
-echo "Configuring sudoers\n"
+echo "Configuring sudoers"
+
 for f in /etc/sudoers /etc/sudoers.d/* ; do
   if [ ! -e "$f" ] ; then
     continue

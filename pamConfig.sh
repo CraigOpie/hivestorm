@@ -1,5 +1,6 @@
 #!/bin/bash
-echo "Configuring PAM\n"
+echo "Configuring PAM"
+echo "Limiting Password Reuse to not within 5 previous passwords"
 # Remediation is applicable only in certain platforms
 if dpkg-query --show --showformat='${db:Status-Status}\n' 'libpam-runtime' 2>/dev/null | grep -q installed; then
 
@@ -44,6 +45,7 @@ else
     >&2 echo 'PASSWORD REUSE Remediation is not applicable, nothing was done'
 fi
 
+echo "Enforcing Delay after failed logon attempt"
 var_password_pam_delay='4000000'
 
 
@@ -126,6 +128,7 @@ if [ -e "/etc/pam.d/common-auth" ] ; then
 
     # fix 'type' if it's wrong
     if grep -q -P "^\\s*(?"'!'"auth\\s)[[:alnum:]]+\\s+[[:alnum:]]+\\s+pam_tally2.so" < "/etc/pam.d/common-auth" ; then
+        sed --follow-symlinks -i -E -e "s/^(\\s*)[[:alnum:]]+(\\s+[[:alnum:]]+\\s+pam_tally2.so)/\\1auth\\2/" "/etc/pam.d/common-auth"
         sed --follow-symlinks -i -E -e "s/^(\\s*)[[:alnum:]]+(\\s+[[:alnum:]]+\\s+pam_tally2.so)/\\1auth\\2/" "/etc/pam.d/common-auth"
     fi
 
