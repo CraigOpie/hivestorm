@@ -1,5 +1,6 @@
 #!/bin/bash
-echo "Configuring Gnome\n"
+echo "Configuring Gnome"
+## Enable GNOME3 Screensaver Lock After Idle Period
 if dpkg-query --show --showformat='${db:Status-Status}\n' 'gdm3' 2>/dev/null | grep -q installed && { [ ! -f /.dockerenv ] && [ ! -f /run/.containerenv ]; }; then
 
 # Check for setting in any of the DConf db directories
@@ -42,9 +43,11 @@ fi
 dconf update
 
 else
-    >&2 echo 'GNOME LOCK Remediation is not applicable, nothing was done'
+    >&2 echo 'Error: Could not Enable GNOME3 Screensaver Lock After Idle Period'
 fi
 
+
+## Disable Ctrl-Alt-Del Reboot Key Sequence in GNOME3
 if dpkg-query --show --showformat='${db:Status-Status}\n' 'gdm3' 2>/dev/null | grep -q installed && { [ ! -f /.dockerenv ] && [ ! -f /run/.containerenv ]; }; then
 
 # Check for setting in any of the DConf db directories
@@ -87,9 +90,11 @@ fi
 dconf update
 
 else
-    >&2 echo 'GNOME LOCK Remediation is not applicable, nothing was done'
+    >&2 echo 'Error: Could not Disable Ctrl-Alt-Del Reboot Key Sequence in GNOME3'
 fi
 
+
+## Enable GNOME3 Login Warning Banner
 if dpkg-query --show --showformat='${db:Status-Status}\n' 'gdm3' 2>/dev/null | grep -q installed; then
 
 login_banner_text='You are accessing a Death Star Development (DSD) Information System (IS) that is provided for DSD-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions:
@@ -153,9 +158,11 @@ dconf update
 # No need to use dconf update, since bash_dconf_settings does that already
 
 else
-    >&2 echo 'SET-BANNER Remediation is not applicable, nothing was done'
+    >&2 echo 'Error: Could not Enable GNOME3 Login Warning Banner'
 fi
 
+
+## Set the GNOME3 Login Warning Banner Text
 if dpkg-query --show --showformat='${db:Status-Status}\n' 'gdm3' 2>/dev/null | grep -q installed; then
 
 # Check for setting in any of the DConf db directories
@@ -198,9 +205,11 @@ fi
 dconf update
 
 else
-    >&2 echo 'GNOME-MESSAGE Remediation is not applicable, nothing was done'
+    >&2 echo 'Error: Cannot Set the GNOME3 Login Warning Banner Text'
 fi
 
+
+## Modify the System Login Banner
 if [ ! -f /.dockerenv ] && [ ! -f /run/.containerenv ]; then
 login_banner_text='You are accessing a Death Star Development (DSD) Information System (IS) that is provided for DSD-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions:
 -DSD routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
@@ -213,9 +222,10 @@ $login_banner_text
 EOF
 
 else
-    >&2 echo 'SYS-MESSAGE Remediation is not applicable, nothing was done'
+    >&2 echo 'Error: Cannot Modify the System Login Banner'
 fi
 
+## Disable Ctrl-Alt-Del Burst Action
 if dpkg-query --show --showformat='${db:Status-Status}\n' 'systemd' 2>/dev/null | grep -q installed; then
 
 # Test if the config_file is a symbolic link. If so, use --follow-symlinks with sed.
@@ -245,15 +255,17 @@ else
 fi
 
 else
-    >&2 echo 'CTL-DEL Remediation is not applicable, nothing was done'
+    >&2 echo 'Error: Cannot Disable Ctrl-Alt-Del Burst Action'
 fi
 
+
+## Disable Ctrl-Alt-Del Reboot Activation
 if [ ! -f /.dockerenv ] && [ ! -f /run/.containerenv ]; then
 
 systemctl disable --now ctrl-alt-del.target
 systemctl mask --now ctrl-alt-del.target
 
 else
-    >&2 echo 'CTL-DEL Remediation is not applicable, nothing was done'
+    >&2 echo 'Error: Cannot Disable Ctrl-Alt-Del Reboot Activation'
 fi
 
