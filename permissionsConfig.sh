@@ -18,7 +18,7 @@ if [ ! -f /.dockerenv ] && [ ! -f /run/.containerenv ]; then
 
 # Comment out any occurrences of fs.protected_hardlinks from /etc/sysctl.d/*.conf files
 
-for f in /etc/sysctl.d/*.conf /run/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf; do
+for f in /etc/sysctl.d/*.conf; do
 
   matching_list=$(grep -P '^(?!#).*[\s]*fs.protected_hardlinks.*$' $f | uniq )
   if ! test -z "$matching_list"; then
@@ -74,7 +74,7 @@ if [ ! -f /.dockerenv ] && [ ! -f /run/.containerenv ]; then
 
 # Comment out any occurrences of fs.protected_symlinks from /etc/sysctl.d/*.conf files
 
-for f in /etc/sysctl.d/*.conf /run/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf; do
+for f in /etc/sysctl.d/*.conf; do
 
   matching_list=$(grep -P '^(?!#).*[\s]*fs.protected_symlinks.*$' $f | uniq )
   if ! test -z "$matching_list"; then
@@ -130,7 +130,7 @@ if [ ! -f /.dockerenv ] && [ ! -f /run/.containerenv ]; then
 
 # Comment out any occurrences of fs.suid_dumpable from /etc/sysctl.d/*.conf files
 
-for f in /etc/sysctl.d/*.conf /run/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf; do
+for f in /etc/sysctl.d/*.conf; do
 
   matching_list=$(grep -P '^(?!#).*[\s]*fs.suid_dumpable.*$' $f | uniq )
   if ! test -z "$matching_list"; then
@@ -186,7 +186,7 @@ if [ ! -f /.dockerenv ] && [ ! -f /run/.containerenv ]; then
 
 # Comment out any occurrences of kernel.randomize_va_space from /etc/sysctl.d/*.conf files
 
-for f in /etc/sysctl.d/*.conf /run/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf; do
+for f in /etc/sysctl.d/*.conf; do
 
   matching_list=$(grep -P '^(?!#).*[\s]*kernel.randomize_va_space.*$' $f | uniq )
   if ! test -z "$matching_list"; then
