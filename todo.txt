@@ -1,7 +1,0 @@
-1. disable guest account
-2. remove unauthorized users 
-3. check sudo group and remove unauthorized accounts -> grep '^sudo:.*$' /etc/group | cut -d: -f4  then sudo deluser [username] sudo
-4. require secure passwords, limit password reuse,
-5. check services running against readme systemctl list-units --all --type=service --no-pager | grep running 
-6. update apt to check daily updates
-7. change root password "sudo passwd"
